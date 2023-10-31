@@ -4,11 +4,7 @@ export class CreateEmpleadoDto {
   @IsString()
   nombre: string;
 
-  @IsInt()
-  @IsOptional()
-  numeroEmpleado: number;
-
-  @IsIn(['Auxiliar', 'Choferes', 'Cargadores'])
+  @IsIn(['Auxiliar', 'Chofer', 'Cargador'])
   rol: string;
 
   @IsInt()

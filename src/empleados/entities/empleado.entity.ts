@@ -3,14 +3,11 @@ import { Nomina } from 'src/nominas/entities/nomina.entity';
 
 @Entity({ name: 'empleado' })
 export class Empleado {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryGeneratedColumn()
+  numeroEmpleado: number;
 
   @Column('text')
   nombre: string;
-
-  @Column('int', { unique: true })
-  numeroEmpleado: number;
 
   @Column('text')
   rol: string;
@@ -22,5 +19,5 @@ export class Empleado {
     cascade: true,
     eager: true,
   })
-  nomina: Nomina[];
+  nomina: Nomina;
 }

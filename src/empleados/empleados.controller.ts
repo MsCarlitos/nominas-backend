@@ -11,7 +11,6 @@ import {
 import { EmpleadosService } from './empleados.service';
 import { CreateEmpleadoDto } from './dto/create-empleado.dto';
 import { UpdateEmpleadoDto } from './dto/update-empleado.dto';
-import { PaginationDto } from 'src/common/dtos/pagination.dto';
 
 @Controller('empleados')
 export class EmpleadosController {
@@ -23,8 +22,10 @@ export class EmpleadosController {
   }
 
   @Get()
-  findAll(@Query() paginationDto: PaginationDto) {
-    return this.empleadosService.findAll(paginationDto);
+  buscarEmpleados(@Query('q') query?: string, @Query('limit') limit?: number) {
+    if (query === undefined)
+      return this.empleadosService.findAll({ limit: 0, offset: 0 });
+    return this.empleadosService.buscarEmpleados(query, limit);
   }
 
   @Get(':id')

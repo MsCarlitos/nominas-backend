@@ -10,19 +10,29 @@ import {
 import { NominasService } from './nominas.service';
 import { CreateNominaDto } from './dto/create-nomina.dto';
 import { UpdateNominaDto } from './dto/update-nomina.dto';
+import { PaginationDto } from '../common/dtos/pagination.dto';
+import { ApiResponse } from '@nestjs/swagger';
+import { Nomina } from './entities/nomina.entity';
 
 @Controller('nominas')
 export class NominasController {
   constructor(private readonly nominasService: NominasService) {}
 
+  @ApiResponse({
+    status: 201,
+    description: 'Nomina was created successfully',
+    type: Nomina,
+  })
+  @ApiResponse({ status: 400, description: 'Bad request' })
+  @ApiResponse({ status: 500, description: 'Internal Server Error' })
   @Post()
   create(@Body() createNominaDto: CreateNominaDto) {
     return this.nominasService.create(createNominaDto);
   }
 
   @Get()
-  findAll() {
-    return this.nominasService.findAll();
+  findAll(paginationDto: PaginationDto) {
+    return this.nominasService.findAll(paginationDto);
   }
 
   @Get(':id')
